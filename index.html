@@ -99,9 +99,9 @@
             // Captura os dados do formulário
             const formData = new FormData(this);
             const leadData = {
-                nome: formData.get('nome'),
+                name: formData.get('nome'),
                 email: formData.get('email'),
-                telefone: formData.get('telefone'),
+                phone: formData.get('telefone'),
                 empresa: formData.get('empresa')
             };
 
@@ -114,9 +114,9 @@
                         'User-Key': '0137E4FB183120BE13FC77C29E66F649F60E4AB16069734E6D6D30DED3550BE7F0C7776583D3C76BB7243583AA2E7D2D11C90A57DCA1BC34AAE84AE4FA4B3EFD'
                     },
                     body: JSON.stringify({
-                        Title: leadData.nome + ' - ' + leadData.empresa,
+                        Name: leadData.name,
                         Email: leadData.email,
-                        Phone: leadData.telefone,
+                        Phone: leadData.phone,
                         CustomFields: [
                             { FieldKey: 'empresa', StringValue: leadData.empresa }
                         ]
@@ -130,9 +130,12 @@
                     // Redireciona para o site da empresa após o envio
                     window.location.href = "https://www.agostiniindustrial.com.br"; // Substitua pelo URL do seu site
                 } else {
-                    alert('Erro ao enviar o lead. Tente novamente.');
+                    const error = await response.json();
+                    console.error('Erro ao enviar:', error);
+                    alert('Erro ao enviar os dados. Verifique e tente novamente.');
                 }
             } catch (error) {
+                console.error('Erro na conexão:', error);
                 alert('Erro ao conectar ao Ploomes. Verifique sua conexão.');
             }
         });
