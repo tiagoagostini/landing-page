@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descontos de até 15% - Máquinas para Blocos de Concreto</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        /* Estilo para o vídeo de fundo */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Faz o vídeo ficar no fundo */
+            filter: brightness(40%); /* Esmaece o vídeo */
+        }
+
+        /* Container centralizado */
+        .container {
+            position: relative;
+            z-index: 1; /* Para ficar acima do vídeo */
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7); /* Fundo semitransparente */
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Vídeo de fundo -->
+    <video class="video-background" autoplay muted loop>
+        <source src="seu-video.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+    </video>
+
+    <!-- Conteúdo da página -->
+    <div class="container">
+        <h1>Automatize sua Produção</h1>
+        <p>Preencha o formulário para receber nosso contato e aproveitar até 15% de desconto.</p>
+        <form id="lead-form">
+            <input type="text" name="nome" placeholder="Seu Nome" required>
+            <input type="email" name="email" placeholder="Seu E-mail" required>
+            <input type="tel" name="telefone" placeholder="Seu Telefone" required>
+            <input type="text" name="empresa" placeholder="Nome da Empresa" required>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('lead-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Captura os dados do formulário
+            const formData = new FormData(this);
+            const leadData = {
+                nome: formData.get('nome'),
+                email: formData.get('email'),
+                telefone: formData.get('telefone'),
+                empresa: formData.get('empresa')
+            };
+
+            // Envia os dados para o Ploomes
+            try {
+                const response = await fetch('https://api2.ploomes.com/Leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Key': '0137E4FB183120BE13FC77C29E66F649F60E4AB16069734E6D6D30DED3550BE7F0C7776583D3C76BB7243583AA2E7D2D11C90A57DCA1BC34AAE84AE4FA4B3EFD'
+                    },
+                    body: JSON.stringify({
+                        Title: leadData.nome + ' - ' + leadData.empresa,
+                        Email: leadData.email,
+                        Phone: leadData.telefone,
+                        CustomFields: [
+                            { FieldKey: 'empresa', StringValue: leadData.empresa }
+                        ]
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Dados enviados com sucesso!');
+                    this.reset();
+
+                    // Redireciona para o site da empresa após o envio
+                    window.location.href = "https://www.agostiniindustrial.com.br"; // Substitua pelo URL do seu site
+                } else {
+                    alert('Erro ao enviar o lead. Tente novamente.');
+                }
+            } catch (error) {
+                alert('Erro ao conectar ao Ploomes. Verifique sua conexão.');
+            }
+        });
+    </script>
+</body>
+</html>
