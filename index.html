@@ -111,14 +111,22 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'User-Key': '0137E4FB183120BE13FC77C29E66F649F60E4AB16069734E6D6D30DED3550BE7F0C7776583D3C76BB7243583AA2E7D2D11C90A57DCA1BC34AAE84AE4FA4B3EFD'
+                        'User-Key': 'SUA_CHAVE_DE_API_AQUI' // Substitua pela sua chave de API
                     },
                     body: JSON.stringify({
                         Name: leadData.name,
-                        Email: leadData.email,
-                        Phone: leadData.phone,
-                        CustomFields: [
-                            { FieldKey: 'empresa', StringValue: leadData.empresa }
+                        TypeId: 2, // Pessoa Jurídica
+                        Emails: [
+                            { Email: leadData.email }
+                        ],
+                        Phones: [
+                            { PhoneNumber: leadData.phone }
+                        ],
+                        OtherProperties: [
+                            {
+                                FieldKey: 'contact_F7E69627-B835-4383-A70C-E1DD5BEF0BEA', // Substitua pelo FieldKey correto
+                                StringValue: leadData.empresa
+                            }
                         ]
                     })
                 });
