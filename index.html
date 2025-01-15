@@ -85,7 +85,7 @@
         <p>Preencha o formulário para receber nosso contato e aproveitar até 15% de desconto.</p>
         <form id="lead-form">
             <input type="text" name="nome" placeholder="Seu Nome" required>
-            <input type="email" name="email" placeholder="Seu E-mail" required>
+            <input type="email" name="e-mail" placeholder="Seu E-mail" required>
             <input type="tel" name="telefone" placeholder="Seu Telefone" required>
             <input type="text" name="empresa" placeholder="Nome da Empresa" required>
             <button type="submit">Enviar</button>
@@ -100,7 +100,7 @@
             const formData = new FormData(this);
             const leadData = {
                 name: formData.get('nome'),
-                email: formData.get('email'),
+                email: formData.get('e-mail'),
                 phone: formData.get('telefone'),
                 empresa: formData.get('empresa')
             };
